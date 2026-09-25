@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>ページタイトル</title>
+</head>
+<body class="bg-gray-200 flex items-center justify-center min-h-screen">
+    <div class="rounded-lg h-56 max-w-xl w-full bg-white">
+        <h1 class="font-bold text-2xl pl-8 pt-8 mb-6">TODOリスト</h1>
+        <div class="flex items-center justify-center px-8">
+            <input id="todoInput" type="text" placeholder="タスクを入力" class="border rounded-lg focus:outline-none focus:border-blue-400 h-16 px-4 flex-1">
+            <button id="addBtn" class="bg-blue-600 text-white h-16 rounded-lg w-12 ml-2">追加</button>
+        </div>
+    <ul id="todoList" class="space-y-2"></ul>
+    </div>
+    <script>
+        const addButton = document.querySelector("#addBtn");
+        const todoInput = document.querySelector("#todoInput")
+        const todoList = document.querySelector("#todoList")
+
+        addButton.addEventListener ("click", () => {
+            const text = todoInput.value;
+
+            if (text === ""){
+                return;
+            }
+        
+        const item = document.createElement("li");
+        item.className = "flex font-bold justify-between px-3 bg-gray-100"//なんでこのクラスなのか調べておく
+
+        const span = document.createElement("span")//なんでspanタグ？
+        span.textContent = text;//spanに反映される文字はtext(todoInput)
+
+        const doneBtn = document.createElement("button")
+        doneBtn.textContent = "完了"
+        doneBtn.className = "rounded-lg hover:text-red-200"
+
+        doneBtn.addEventListener("click", () => {
+            span.classList.toggle("line-through");//classにあれば削除、なければ追加
+            span.classList.toggle("text-gray-300")
+        }); //;は「一つの命令が終わる合図」
+
+        item.appendChild(span);//spanの内容をitemに入れる
+        item.appendChild(doneBtn);//doneBtnの内容をitemに入れる
+        todoList.appendChild(item);//itemの内容をtodoListに入れる
+
+        todoInput.value = "";
+
+        });
+    </script>
+</body>
+</html>
